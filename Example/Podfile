@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'HelloOCKit_Example' do
+  pod 'HelloOCKit', :path => '../'
+
+  target 'HelloOCKit_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
