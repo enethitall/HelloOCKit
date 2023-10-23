@@ -35,5 +35,6 @@ TODO: Add long description of the pod here.
   s.public_header_files = 'HelloOCKit/Classes/**/*.h'
 
   s.frameworks = 'UIKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'Masonry'
+  s.dependency 'YYText'
 end
