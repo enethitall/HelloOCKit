@@ -13,8 +13,6 @@
 #define checkBtnWidth 60.0
 #define checkBtnHeight 60.0
 
-static const NSCalendarUnit unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekday;
-
 @interface HelloLog()
 
 @property (nonatomic,strong) UIButton *checkButton;
@@ -28,9 +26,19 @@ static HelloLog *_instance;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             _instance = [[self alloc] init];
+            [[NSNotificationCenter defaultCenter] addObserver:_instance selector:@selector(change) name:UIWindowDidBecomeHiddenNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:_instance selector:@selector(quit) name:@"quit" object:nil];
         });
     }
     return _instance;
+}
+
+- (void)change{
+    self.checkButton.hidden = YES;
+}
+
+- (void)quit{
+    self.checkButton.hidden = NO;
 }
 
 - (void)enable{
@@ -46,14 +54,15 @@ static HelloLog *_instance;
     }
     
     if(!isXcodeLaunch){
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *logDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Log"];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *logDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"HelloLogs"];
         NSFileManager *fileManager = [NSFileManager defaultManager];
         BOOL fileExists = [fileManager fileExistsAtPath:logDirectory];
         if (!fileExists) {
             [fileManager createDirectoryAtPath:logDirectory withIntermediateDirectories:YES attributes:nil error:nil];
         }
-        NSString *logFilePath = [logDirectory stringByAppendingFormat:[NSString stringWithFormat:@"/%ld-%ld-%ld.txt",[self currentYear],[self currentMonth],[self currentDay]]];
+        NSString *logFilePath = [logDirectory stringByAppendingFormat:@"%@", [NSString stringWithFormat:@"/%ld-%ld-%ld.txt",[self currentYear],[self currentMonth],[self currentDay]]];
         // freopen 重定向输出流,将log输入到文件
         freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
         freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
@@ -129,10 +138,11 @@ static HelloLog *_instance;
 -(void)showCheckEnv{
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:HelloLogViewController.new];
     nav.modalPresentationStyle = UIModalPresentationFullScreen;
-    [UIWindow.hl_window.rootViewController presentViewController:nav animated:YES completion:nil];
+    [UIViewController.hl_currentVC presentViewController:nav animated:YES completion:nil];
 }
 
 - (NSInteger)currentYear{
+    NSCalendarUnit unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekday;
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *currentDate = [NSDate date];
     NSDateComponents *components = [calendar components:unitFlags fromDate:currentDate];
@@ -140,6 +150,7 @@ static HelloLog *_instance;
 }
 
 - (NSInteger)currentMonth{
+    NSCalendarUnit unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekday;
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *currentDate = [NSDate date];
     NSDateComponents *components = [calendar components:unitFlags fromDate:currentDate];
@@ -147,6 +158,7 @@ static HelloLog *_instance;
 }
 
 - (NSInteger)currentDay{
+    NSCalendarUnit unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekday;
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *currentDate = [NSDate date];
     NSDateComponents *components = [calendar components:unitFlags fromDate:currentDate];

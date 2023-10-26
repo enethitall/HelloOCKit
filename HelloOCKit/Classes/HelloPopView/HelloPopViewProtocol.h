@@ -3,13 +3,6 @@
 #import <Foundation/Foundation.h>
 @class HelloPopView;
 
-
-#ifdef DEBUG
-#define HelloLog(format, ...) printf("class: <%p %s:(第%d行) > method: %s \n%s\n", self, [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, __PRETTY_FUNCTION__, [[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String] )
-#else
-#define HelloLog(format, ...)
-#endif
-
 typedef void (^ _Nullable Hello_Block_Void)(void);
 typedef void (^ _Nullable Hello_Block_Point)(CGPoint point);
 typedef void (^ _Nullable Hello_Block_AlertCountDown)(HelloPopView * _Nonnull popView,NSTimeInterval timeInterval);

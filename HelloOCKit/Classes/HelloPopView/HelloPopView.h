@@ -3,6 +3,7 @@
 #import <UIKit/UIKit.h>
 #import "HelloPopViewProtocol.h"
 #import "UIView+Hello.h"
+#import "HelloMacro.h"
 
 
 #define HelloPopViewWK(object)  __weak typeof(object) wk_##object = object;
