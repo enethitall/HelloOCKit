@@ -1099,7 +1099,7 @@ static const NSTimeInterval HelloPopViewDefaultDuration = -1.0f;
                     [tPopView.container addSubview:tPopView];
                     [HelloPopViewM().showList addPointer:(__bridge void * _Nullable)tPopView];
                 }
-                [tPopView popWithPopStyle:HelloPopStyleFade duration:0.25 isOutStack:YES];
+                if (!isRemove) [tPopView popWithPopStyle:HelloPopStyleSmoothFromTop duration:0.25 isOutStack:YES];
             }
         });
     }

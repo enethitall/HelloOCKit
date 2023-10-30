@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return 日期
  */
 + (NSDate *)dateFromTimestamp:(NSString *)timestamp;
-
 /**
  *  日期转时间戳
  *
