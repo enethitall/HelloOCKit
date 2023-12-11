@@ -10,9 +10,13 @@
 #define HelloCurrentTime _HelloLogTime()
 
 #ifdef DEBUG
-#define HelloLog(format, ...) NSLog((@"\n%s <%s:%s(第%d行)>\n" format), [HelloCurrentTime UTF8String], [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __PRETTY_FUNCTION__,__LINE__,##__VA_ARGS__)
+#define HelloLog(format, ...) NSLog((@"\n%s 【Hello】<%s:%s[第%d行]> " format), [HelloCurrentTime UTF8String], [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __PRETTY_FUNCTION__,__LINE__,##__VA_ARGS__)
+#define HelloPRLog(format, ...) printf("%s 【Hello】<%s:%s[第%d行]> %s\n", [HelloCurrentTime UTF8String],[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
+#define HelloOSLog(format,...) os_log(OS_LOG_DEFAULT, "\n%s 【Hello】<%s:%s[第%d行]> %{public}@",[HelloCurrentTime UTF8String],[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String],__PRETTY_FUNCTION__, __LINE__,[NSString stringWithFormat:format, ##__VA_ARGS__]);
 #else
 #define HelloLog(format, ...)
+#define HelloPRLog(format, ...)
+#define HelloOSLog(format,...)
 #endif
 
 static inline NSString *_HelloLogTime(void) {

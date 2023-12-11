@@ -70,6 +70,8 @@ static HelloLog *_instance;
 }
 
 - (void)close{
+    freopen("CON", "r", stdin);
+    freopen("CON", "w", stdout);
     [self.checkButton removeFromSuperview];
 }
 
