@@ -52,6 +52,21 @@
     
 }
 
++ (void)showGoingToast:(NSString *)toast{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:rootWindow() animated:NO];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:rootWindow() animated:NO];
+        hud.mode = MBProgressHUDModeCustomView;
+        hud.customView = toastView(toast, hud);
+        hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+        hud.margin = 0;
+        hud.bezelView.color = [[UIColor blackColor] colorWithAlphaComponent:0.7];
+        hud.bezelView.layer.cornerRadius = 4;
+        hud.bezelView.layer.masksToBounds = NO;
+        hud.removeFromSuperViewOnHide = YES;
+    });
+}
+
 + (void)dismiss{
     dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD hideHUDForView:rootWindow() animated:NO];

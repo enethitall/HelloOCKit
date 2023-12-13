@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)showToast:(NSString *)toast;
 
++ (void)showGoingToast:(NSString *)toast;
+
 @end
 
 NS_ASSUME_NONNULL_END
