@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)showGoingToast:(NSString *)toast;
 
++ (void)hiddenHUDActivity;
+
 @end
 
 NS_ASSUME_NONNULL_END

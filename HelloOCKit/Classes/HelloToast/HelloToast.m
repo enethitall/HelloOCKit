@@ -74,6 +74,10 @@
 
 }
 
++ (void)hiddenHUDActivity{
+    [HelloToast dismiss];
+}
+
 ///获取自定义HelloPopView Toast
 UIView *ToastPopView(NSString *title){
     float maxWidth = UIScreen.mainScreen.bounds.size.width-40*2-24*2;

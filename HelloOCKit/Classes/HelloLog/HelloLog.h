@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sharedInstance;
 ///开启
-- (void)enable;
+- (void)enable:(void(^)(void))touchUpInsideEvent;
 ///关闭
 - (void)close;
 

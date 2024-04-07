@@ -17,6 +17,9 @@
 
 @property (nonatomic,strong) UIButton *checkButton;
 
+@property (nonatomic,copy) void(^tap)(void);
+
+
 @end
 
 @implementation HelloLog
@@ -34,15 +37,15 @@ static HelloLog *_instance;
 }
 
 - (void)change{
-    self.checkButton.hidden = YES;
+//    self.checkButton.hidden = YES;
 }
 
 - (void)quit{
-    self.checkButton.hidden = NO;
+//    self.checkButton.hidden = NO;
 }
 
-- (void)enable{
-    
+- (void)enable:(void(^)(void))touchUpInsideEvent{
+    self.tap = touchUpInsideEvent;
     UIWindow *window = UIWindow.hl_window;
     [window addSubview:self.checkButton];
     
@@ -138,9 +141,7 @@ static HelloLog *_instance;
 }
 
 -(void)showCheckEnv{
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:HelloLogViewController.new];
-    nav.modalPresentationStyle = UIModalPresentationFullScreen;
-    [UIViewController.hl_currentVC presentViewController:nav animated:YES completion:nil];
+    self.tap();
 }
 
 - (NSInteger)currentYear{
