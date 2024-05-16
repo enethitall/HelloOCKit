@@ -37,4 +37,5 @@ TODO: Add long description of the pod here.
   s.dependency 'Masonry'
   s.dependency 'YYText'
   s.dependency 'MBProgressHUD'
+  s.dependency 'CocoaLumberjack'
 end

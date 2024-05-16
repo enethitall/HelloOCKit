@@ -10,6 +10,16 @@
 static const void*showTapTraceKey = &showTapTraceKey;
 @implementation UIWindow (Touch)
 
+//-(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+//    NSLog(@"hitTest----------------UIWindow");
+//    return [super hitTest:point withEvent:event];
+//}
+//
+//-(BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event{
+//    NSLog(@"pointInside------------UIWindow");
+//    return YES;
+//}
+
 -(void)setShowTapTrace:(BOOL)showTapTrace{
     objc_setAssociatedObject(self, showTapTraceKey, @(showTapTrace), OBJC_ASSOCIATION_ASSIGN);
 }

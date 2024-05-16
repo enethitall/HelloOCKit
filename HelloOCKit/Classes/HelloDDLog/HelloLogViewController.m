@@ -8,6 +8,7 @@
 #import "HelloLogViewController.h"
 #import <Masonry/Masonry.h>
 #import <YYText/YYTextView.h>
+#import "HelloDDLog.h"
 
 @interface HelloLogViewController ()
 @property (nonatomic,strong) YYTextView *textView;
@@ -17,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = NO;
     YYTextView *textView = [[YYTextView alloc]init];
     [self.view addSubview:textView];
@@ -46,11 +48,7 @@
 }
 
 - (NSMutableAttributedString *)logText{
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *logDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"HelloLogs"];
-    NSString *logFilePath = [logDirectory stringByAppendingFormat:@"%@", [NSString stringWithFormat:@"/%ld-%ld-%ld.txt",[self currentYear],[self currentMonth],[self currentDay]]];
-    NSData *data = [NSData dataWithContentsOfFile:logFilePath];
+    NSData *data = [NSData dataWithContentsOfFile:HelloDDLog.shareInstance.currentFilePath];
     NSString *text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSString *sub= [NSNumber numberWithInteger:[self currentYear]].stringValue;
     NSMutableArray *locationArr = [self calculateSubStringCount:text str:sub];
@@ -87,10 +85,7 @@
 }
 
 -(void)export{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *logDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"HelloLogs"];
-    NSString *logFilePath = [logDirectory stringByAppendingFormat:@"%@", [NSString stringWithFormat:@"/%ld-%ld-%ld.txt",[self currentYear],[self currentMonth],[self currentDay]]];
-    NSArray *itemsArr = @[[NSURL fileURLWithPath:logFilePath]];
+    NSArray *itemsArr = @[[NSURL fileURLWithPath:HelloDDLog.shareInstance.currentFilePath]];
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:itemsArr applicationActivities:nil];
     activityViewController.completionWithItemsHandler = ^(UIActivityType __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError) {
         NSLog(@"completion: %@, %d, %@, %@", activityType, completed, returnedItems, activityError);
