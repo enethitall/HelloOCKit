@@ -39,4 +39,3 @@ typedef void(^HelloRouterUnableToGetAnInstanceCallback)(HelloRouteRequest *reque
 NS_ASSUME_NONNULL_END
 
 
-#endif /* SJRouteHandler_h */
