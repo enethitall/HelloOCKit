@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 //关闭文件log
 - (void)close;
 
-//打印项目所有的类
+//打印项目中所有的类
 - (void)printAllClass;
 
 @end

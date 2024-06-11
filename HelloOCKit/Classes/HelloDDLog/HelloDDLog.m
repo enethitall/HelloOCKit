@@ -9,6 +9,7 @@
 #import "HelloDDLogFileLogFormatter.h"
 #import "HelloDDLogFileManager.h"
 #import <objc/message.h>
+#import "NSObject+Hello.h"
 
 DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
@@ -176,7 +177,6 @@ static dispatch_once_t helloOnceToken;
 -(void)printAllClass{
     
     const char *main = NSBundle.mainBundle.bundlePath.UTF8String;
-    NSLog(@"main = %s",main);
     unsigned int image_count;
     const char **images = objc_copyImageNames(&image_count);
     for(int i = 0; i < image_count;i++)
@@ -189,6 +189,8 @@ static dispatch_once_t helloOnceToken;
         for ( unsigned int i = 0 ; i < cls_count ; ++ i ) {
             const char *cls_name = names[i];
             Class _Nullable cls = objc_getClass(cls_name);
+            Class _Nullable supercls = class_getSuperclass(cls);
+            if (!supercls ) continue;
             NSLog(@"cls_%i:%@",i,cls);
         }
         if ( names ) free(names);
