@@ -8,6 +8,7 @@
 #import "HelloDDLog.h"
 #import "HelloDDLogFileLogFormatter.h"
 #import "HelloDDLogFileManager.h"
+#import <objc/message.h>
 
 DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
@@ -170,6 +171,29 @@ static dispatch_once_t helloOnceToken;
 - (void)destory{
     helloOnceToken = 0;
     instance = nil;
+}
+
+-(void)printAllClass{
+    
+    const char *main = NSBundle.mainBundle.bundlePath.UTF8String;
+    NSLog(@"main = %s",main);
+    unsigned int image_count;
+    const char **images = objc_copyImageNames(&image_count);
+    for(int i = 0; i < image_count;i++)
+    {
+        const char *image = images[i];
+        if ( !strstr(image, main) ) continue;
+        NSLog(@"image_%i:%s",i,image);
+        unsigned int cls_count = 0;
+        const char **names = objc_copyClassNamesForImage(image, &cls_count);
+        for ( unsigned int i = 0 ; i < cls_count ; ++ i ) {
+            const char *cls_name = names[i];
+            Class _Nullable cls = objc_getClass(cls_name);
+            NSLog(@"cls_%i:%@",i,cls);
+        }
+        if ( names ) free(names);
+    }
+    if( images ) free(images);
 }
 
 
