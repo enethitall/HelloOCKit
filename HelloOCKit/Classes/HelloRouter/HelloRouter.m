@@ -5,7 +5,7 @@
 #import "HelloRouteObject+Private.h"
 
 NS_ASSUME_NONNULL_BEGIN
-static UIViewController *_sj_get_top_view_controller(void) {
+static UIViewController *hello_get_top_view_controller(void) {
     UIViewController *vc = UIApplication.sharedApplication.keyWindow.rootViewController;
     while (  [vc isKindOfClass:[UINavigationController class]] ||
              [vc isKindOfClass:[UITabBarController class]] ||
@@ -209,13 +209,13 @@ static SEL sel_instance;
     if ( request == nil ) return;
     id _Nullable handler = [self _handlerForRoutePath:request.requestPath];
     if      ( [handler respondsToSelector:sel_handler_v2] ) {
-        [handler handleRequest:request topViewController:_sj_get_top_view_controller() completionHandler:completionHandler];
+        [handler handleRequest:request topViewController:hello_get_top_view_controller() completionHandler:completionHandler];
     }
     else {
 #ifdef DEBUG
         printf("\n(-_-) Unhandled request: [%s]\n", request.description.UTF8String);
 #endif
-        if ( self->_unhandledCallback ) self->_unhandledCallback(request, _sj_get_top_view_controller(), completionHandler);
+        if ( self->_unhandledCallback ) self->_unhandledCallback(request, hello_get_top_view_controller(), completionHandler);
     }
 }
 @end
