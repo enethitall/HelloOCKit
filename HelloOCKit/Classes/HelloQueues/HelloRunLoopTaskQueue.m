@@ -47,7 +47,7 @@ typedef struct {
     CFRunLoopObserverRef _Nullable obr;
 } HelloRunLoopObserverRef;
 
-static NSString *const kSJRunLoopTaskMainQueue = @"com.SJRunLoopTaskQueue.main";
+static NSString *const kSJRunLoopTaskMainQueue = @"com.HelloRunLoopTaskQueue.main";
 
 @interface HelloRunLoopTaskQueue ()
 @property (nonatomic, strong, readonly) HelloQueue<dispatch_block_t> *queue;

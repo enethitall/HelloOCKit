@@ -25,6 +25,7 @@
     [textView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.bottom.offset(0);
     }];
+    self.textView = textView;
     [textView becomeFirstResponder];
     textView.attributedText = [self logText];
     NSRange range;
@@ -45,6 +46,11 @@
     [backButton setTitle:@"退出" forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(exit) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backButton];
+    
+    UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [clearButton setTitle:@"清除" forState:UIControlStateNormal];
+    [clearButton addTarget:self action:@selector(clear) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = clearButton;
 }
 
 - (NSMutableAttributedString *)logText{
@@ -98,6 +104,12 @@
     [self dismissViewControllerAnimated:YES completion:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"quit" object:self];
     }];
+}
+
+-(void)clear{
+    [HelloDDLog.shareInstance createAndRollToNewFile];
+    NSMutableAttributedString *attstr = [[NSMutableAttributedString alloc] initWithString:@""];
+    self.textView.attributedText = attstr;
 }
 
 - (NSInteger)currentYear{
