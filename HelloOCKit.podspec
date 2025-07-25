@@ -34,8 +34,13 @@ TODO: Add long description of the pod here.
 
   s.public_header_files = 'HelloOCKit/Classes/**/*.h'
 
+ #s.resource = 'HelloOCKit/Assets/Resource/lark.bundle'
+ #s.vendored_frameworks = ['HelloOCKit/Assets/GLLarkLightShowSDK.framework']
+ #s.vendored_libraries = ['HelloOCKit/Assets/libmp3lame.a']
+
   s.dependency 'Masonry'
   s.dependency 'YYText'
   s.dependency 'MBProgressHUD'
   s.dependency 'CocoaLumberjack'
+
 end
